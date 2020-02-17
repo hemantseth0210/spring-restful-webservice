@@ -1,15 +1,19 @@
 package com.spring.rest.webservices.socialmedia.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-
+@ApiModel(description = "User Model information")
 public class User {
 
 	private Integer id;
 
 	@Size(min = 2, message = "Name should be atleast 2 characters.")
+	@ApiModelProperty(notes = "Name must have atlease 2 characters.")
 	private String name;
 
 	@Past
