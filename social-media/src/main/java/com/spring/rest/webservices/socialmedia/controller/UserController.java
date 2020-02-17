@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.spring.rest.webservices.socialmedia.entity.User;
+import com.spring.rest.webservices.socialmedia.exception.UserNotFoundException;
 import com.spring.rest.webservices.socialmedia.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,8 @@ public class UserController {
 	@GetMapping("/users/{id}")
 	public User retrieveUser(@PathVariable Integer id){
 		User user = userDao.findById(id);
+		if(user == null)
+			throw new UserNotFoundException(String.format("User is not found with id %s", id));
 		return user;
 	}
 	
@@ -48,6 +51,7 @@ public class UserController {
 	@DeleteMapping("/users/{id}")
 	public void deleteUser(@PathVariable Integer id){
 		User user = userDao.deleteById(id);
-
+		if(user == null)
+			throw new UserNotFoundException(String.format("User is not found with id %s", id));
 	}
 }
