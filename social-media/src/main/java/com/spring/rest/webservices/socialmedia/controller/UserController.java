@@ -8,6 +8,9 @@ import com.spring.rest.webservices.socialmedia.entity.User;
 import com.spring.rest.webservices.socialmedia.exception.UserNotFoundException;
 import com.spring.rest.webservices.socialmedia.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,11 +32,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/{id}")
-	public User retrieveUser(@PathVariable Integer id){
+	public Resource<User> retrieveUser(@PathVariable Integer id){
 		User user = userDao.findById(id);
 		if(user == null)
 			throw new UserNotFoundException(String.format("User is not found with id %s", id));
-		return user;
+
+		Resource<User> userResource = new Resource<>(user);
+		ControllerLinkBuilder linkTo =  linkTo(methodOn(this.getClass()).retrieveAllUsers());
+		userResource.add(linkTo.withRel("all-users"));
+		return userResource;
 	}
 	
 	@PostMapping("/users")
