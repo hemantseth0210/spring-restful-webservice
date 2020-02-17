@@ -37,7 +37,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-	public ResponseEntity<User> createUser(@RequestBody User user){
+	public ResponseEntity<User> createUser(@Valid @RequestBody User user){
 		User savedUser = userDao.save(user);
 		/*
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
