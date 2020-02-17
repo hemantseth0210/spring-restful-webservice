@@ -17,7 +17,7 @@ public class SpringRestfulWebservicesApplication {
 		SpringApplication.run(SpringRestfulWebservicesApplication.class, args);
 	}
 	
-	/*@Bean
+	@Bean
 	public LocaleResolver localeResolver() {
 		//SessionLocaleResolver localeResolver = new SessionLocaleResolver();
 		AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
@@ -30,6 +30,6 @@ public class SpringRestfulWebservicesApplication {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setBasename("messages");
 		return messageSource;
-	}*/
+	}
 
 }
